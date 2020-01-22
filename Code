@@ -1,0 +1,53 @@
+package exa.pkg11;
+
+import java.util.Scanner;
+
+public class ExA11 {
+
+    public static void main(String[] args) {
+    Scanner lector = new Scanner(System.in);
+    char sexe='c';
+    int NP=0,contador=0,home=0,dona=0;
+    boolean correcte=false;
+    
+    
+    do{
+
+                System.out.print("Escriu el numero de professors: ");
+                if (lector.hasNextInt())
+                    {
+                NP = lector.nextInt();
+                
+                correcte=true;
+               } else {
+                //Si el valor no és enter, es llegeix però s’ignora.
+                correcte=false;
+                    lector.nextLine();
+                            }
+           
+    }while((NP<0)||(!correcte));
+    for(contador=1;contador<=NP;contador++)
+        {
+            do{
+   
+             System.out.print("Escriu el sexe: ");           
+             sexe=lector.next().charAt(0);
+             
+             }while(((sexe!='h')&&(sexe!='H'))&&((sexe!='m')&&(sexe!='M')));
+             
+                if((sexe=='h')||(sexe=='H'))
+              {
+                home=home+1;
+               
+              } else
+              {
+                dona=dona+1;
+               
+             }
+         
+        }
+        
+        System.out.println("Hi ha "+NP+"  professors." + " Dels quals "+home+" son homes y "+dona+" son dones.");
+    }
+    
+}
