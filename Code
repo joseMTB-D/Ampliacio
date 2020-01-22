@@ -1,0 +1,92 @@
+   Dim MySQLDA As MySqlDataAdapter
+        Dim DT As New DataTable
+        Dim alumnos As String = "alumnos"
+        Dim Data As Integer
+        Dim Connection As New MySqlConnection("server=localhost; user=root; password=; database=p2-trello;")
+        Dim Query As String = "INSERT INTO alumnos(Nom,Cognoms,Edat,DNI,Nota,Curs) VALUES(@Nom,@Cognoms,@Edat,@DNI,@Nota,@Curs) "
+        Dim comando As New MySqlCommand(Query, Connection)
+
+        Dim validacio As String
+        Dim valid As String
+        valid = 1
+
+        If valid = 1 Then
+
+            Try
+                Connection.ConnectionString = "server=localhost; user=root; password=; database=p2-trello;"
+                Connection.Open()
+                Dim consulta As String
+                Query = "INSERT INTO alumnos(Nom,Cognoms,Edat,DNI,Nota,Curs) VALUES(@Nom,@Cognoms,@Edat,@DNI,@Nota,@Curs) "
+                MySQLDA = New MySqlDataAdapter(Query, Connection)
+
+
+                If nom.Text = "" Then
+                    MsgBox("Introduce un nombre valido")
+                Else
+
+                    comando.Parameters.AddWithValue("@Nom", nom.Text)
+                    validacio += 1
+                End If
+                If Cognom.Text = "" Then
+                    MsgBox("Introduce un apellido valido")
+                Else
+                    comando.Parameters.AddWithValue("@Cognoms", Cognom.Text)
+                    validacio += 1
+                End If
+
+                If (edat.Text = "") Then
+                    MsgBox("Introduce una edad valida")
+                ElseIf ((edat.Text < 16) Or (edat.Text > 100)) Then
+                    MsgBox("Introduce una edad entre 16 y 100 años")
+                Else
+                    comando.Parameters.AddWithValue("@Edat", edat.Text)
+                    validacio += 1
+                End If
+
+                If dni.Text = "" Then
+                    MsgBox("Introduce un DNI/NIF valido")
+                ElseIf dni.Text <> "" Then
+                    Query = "SELECT DNI FROM alumnos WHERE DNI = DNI"
+                    If dni.Text = comando.Parameters.Equals("@DNI", dni.Text) Then
+                        dni.Text = ""
+                        MsgBox("DNI Existente.")
+                    Else
+                        comando.Parameters.AddWithValue("@DNI", dni.Text)
+                        validacio += 1
+                    End If
+                End If
+
+
+
+                If Cicles.Text = "" Then
+                    MsgBox("introduce un Curso")
+                Else
+
+                    comando.Parameters.AddWithValue("@Curs", Cicles.Text)
+                    validacio += 1
+                End If
+
+
+                If final <> -1 Then
+                    comando.Parameters.AddWithValue("@Nota", final.ToString)
+                    comando.ExecuteNonQuery()
+                End If
+
+                Me.final = (fATX.punts + fATX2.punts + fmicro.punts + Micro2.punts + fmicro.punts + MINI2.punts) / 30 * 10
+                Acabado = final
+                If Acabado < 5 Then
+                    Resultado.BackColor = Color.Red
+                Else
+                    Resultado.BackColor = Color.Green
+                End If
+
+            Catch ex As Exception
+
+
+
+            End Try
+
+        ElseIf validacio = 5 Then
+            Me.Hide()
+            Resultado.Show()
+        End If
