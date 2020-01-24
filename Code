@@ -1,4 +1,4 @@
-   Dim MySQLDA As MySqlDataAdapter
+   Dim MySQLDA As MySqlDataAdapter UwUwUwUwUwUwUwUwUwUwUwUwUwUwUwUwUwUwU
         Dim DT As New DataTable
         Dim alumnos As String = "alumnos"
         Dim Data As Integer
